@@ -2,7 +2,7 @@ package hangman;
 
 public class HangmanTester {
 
-	Gallows gallows;
+	private Gallows gallows;
 	public void newGallows(String word) {
 		gallows = new Gallows(word);
 	}
