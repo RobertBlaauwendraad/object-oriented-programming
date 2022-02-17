@@ -1,7 +1,7 @@
 package geometric;
 
 public class Assignment03Tester {
-
+	private Geometric[] geometrics = new Geometric[10];
 	public Assignment03Tester() {
 	}
 
