@@ -5,4 +5,6 @@ public interface Geometric {
 	double rightBorder();
 	double bottomBorder();
 	double leftBorder();
+	double area();
+	void move(double dx, double dy);
 }

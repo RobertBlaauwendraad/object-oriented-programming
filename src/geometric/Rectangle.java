@@ -25,11 +25,22 @@ public class Rectangle implements Geometric {
 
 	@Override
 	public double bottomBorder() {
-		return y - height;
+		return y;
 	}
 
 	@Override
 	public double leftBorder() {
-		return x - width;
+		return x;
+	}
+
+	@Override
+	public double area() {
+		return width * height;
+	}
+
+	@Override
+	public void move(double dx, double dy) {
+		x += dx;
+		y += dy;
 	}
 }
