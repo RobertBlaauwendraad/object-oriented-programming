@@ -6,6 +6,7 @@ public class Assignment03Tester {
 	}
 
 	public void createCircle(double x, double y, double r) {
+		Circle circle = new Circle(x, y, r);
 	}
 
 	public void createRectangle(double x, double y, double width, double height) {
