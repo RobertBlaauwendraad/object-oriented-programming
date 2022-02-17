@@ -3,8 +3,8 @@ package geometric;
 import java.lang.annotation.Inherited;
 
 public class Circle implements Geometric{
-	private  double x;
-	private  double y;
+	private double x;
+	private double y;
 	private final double r;
 
 	public Circle(double x, double y, double r) {
