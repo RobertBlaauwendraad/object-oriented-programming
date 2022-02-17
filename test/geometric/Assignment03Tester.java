@@ -26,7 +26,7 @@ public class Assignment03Tester {
 	}
 
 	public double rightBorder(int index) {
-		return 0.0;
+		return geometrics[index].rightBorder();
 	}
 
 	public double bottomBorder(int index) {

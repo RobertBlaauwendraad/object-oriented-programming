@@ -1,5 +1,7 @@
 package geometric;
 
+import java.lang.annotation.Inherited;
+
 public class Circle implements Geometric{
 	private  double x;
 	private  double y;
@@ -31,4 +33,14 @@ public class Circle implements Geometric{
 		return y - r;
 	}
 
+	@Override
+	public double area() {
+		return Math.PI * (r*r);
+	}
+
+	@Override
+	public void move(double dx, double dy) {
+	x += dx;
+	y += dy;
+	}
 }
