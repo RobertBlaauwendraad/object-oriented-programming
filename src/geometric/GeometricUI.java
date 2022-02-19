@@ -1,6 +1,8 @@
 package geometric;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class GeometricUI {
@@ -40,14 +42,31 @@ public class GeometricUI {
                     double hRectangle = Double.parseDouble(hRectangleString);
                     rectangle(xRectangle, yRectangle, wRectangle, hRectangle);
                 }
-                case "move" -> move();
-                case "remove" -> remove();
-                case "sort" -> sort();
+                case "move" -> {
+                    String indexString = scanner.next();
+                    String dxString = scanner.next();
+                    String dyString = scanner.next();
+                    int index = Integer.parseInt(indexString);
+                    double dx = Double.parseDouble(dxString);
+                    double dy = Double.parseDouble(dyString);
+                    move(index, dx, dy);
+                }
+                case "remove" -> {
+                    String indexString = scanner.next();
+                    int index = Integer.parseInt(indexString);
+                    remove(index);
+                }
+                case "sort" -> {
+                    String sortCriterion = scanner.nextLine();
+                    // Removes all whitespaces and non-visible characters
+                    sortCriterion = sortCriterion.replaceAll("\\s+","");
+                    sort(sortCriterion);
+                }
             }
         }
     }
 
-    //show the whole array with the geometric objects
+    // Show characteristics of each geometric in array
     private void showGeometrics() {
         for (Geometric currentGeometric : currentGeometrics) {
             String geometricString = currentGeometric.toString(currentGeometrics.indexOf(currentGeometric));
@@ -55,29 +74,37 @@ public class GeometricUI {
         }
     }
 
-    //put object in array
+    // Add circle to array
     private void circle(double x, double y, double r) {
         Circle circle = new Circle(x, y, r);
         currentGeometrics.add(circle);
     }
 
-    //put object in array
+    // Add rectangle to array
     private void rectangle(double x, double y, double width, double height) {
         Rectangle rectangle = new Rectangle(x, y, width, height);
         currentGeometrics.add(rectangle);
     }
 
-    //move object i in the array with dx and dy
-    private void move() {
+    // Move geometric with given index in the array with dx and dy
+    private void move(int index, double dx, double dy) {
+        currentGeometrics.get(index).move(dx, dy);
     }
 
-    //remove object i in the array (.remove?)
-    private void remove() {
-
+    // Remove geometric with given index from the array
+    private void remove(int index) {
+        currentGeometrics.remove(index);
     }
 
-    //(?)
-    private void sort() {
-
+    // Sorts the array based on given criterion
+    private void sort(String sortCriterion) {
+        System.out.println(sortCriterion);
+        if (sortCriterion.equals("x")) {
+            currentGeometrics.sort(new GeometricComparatorByX());
+        } else if (sortCriterion.equals("y")) {
+            currentGeometrics.sort(new GeometricComparatorByY());
+        } else {
+            Collections.sort(currentGeometrics);
+        }
     }
 }
