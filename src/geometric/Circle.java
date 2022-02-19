@@ -43,4 +43,10 @@ public class Circle implements Geometric{
 	x += dx;
 	y += dy;
 	}
+
+	@Override
+	public String toString(int index){
+		return "Geometric: " + index + " X: " + x + " Y: " + y + " Radius: " + r;
+	}
+
 }

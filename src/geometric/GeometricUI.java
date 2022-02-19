@@ -9,13 +9,6 @@ public class GeometricUI {
 
     public GeometricUI() {
         startProgram();
-        quit();
-        showGeometrics();
-        circle();
-        rectangle();
-        move();
-        remove();
-        sort();
     }
 
     private void startProgram() {
@@ -52,11 +45,6 @@ public class GeometricUI {
                 case "sort" -> sort();
             }
         }
-    }
-
-    //break?
-    private void quit() {
-
     }
 
     //show the whole array with the geometric objects
