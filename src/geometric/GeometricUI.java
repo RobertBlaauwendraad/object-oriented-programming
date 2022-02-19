@@ -1,11 +1,11 @@
 package geometric;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GeometricUI {
-    Scanner scanner = new Scanner(System.in);
-    String input = scanner.nextLine();
-    int number = scanner.nextInt();
+    private  static final int GEOMETRICS_CAPACITY = 10;
+    private final ArrayList<Geometric> currentGeometrics = new ArrayList<>(GEOMETRICS_CAPACITY);
 
     public GeometricUI() {
         startProgram();
@@ -19,22 +19,38 @@ public class GeometricUI {
     }
 
     private void startProgram() {
-        System.out.println("Choose one of these commands (quit, show, circle, rectangle, move, remove, sort: ");
-        switch (input) {
-            case "quit":
-                quit();
-            case "show":
-                showGeometrics();
-            case "circle":
-                circle();
-            case "rectangle":
-                rectangle();
-            case "move":
-                move();
-            case "remove":
-                remove();
-            case "sort":
-                sort();
+        Scanner scanner = new Scanner(System.in);
+        boolean hasBeenQuit = false;
+        while(!hasBeenQuit) {
+            System.out.println("Choose one the following commands: quit, show, circle, rectangle, move, remove, sort: ");
+            String enteredCommand = scanner.next();
+            switch (enteredCommand) {
+                case "quit" -> hasBeenQuit = true;
+                case "show" -> showGeometrics();
+                case "circle" -> {
+                    String xCircleString = scanner.next();
+                    String yCircleString = scanner.next();
+                    String rCircleString = scanner.next();
+                    double xCircle = Double.parseDouble(xCircleString);
+                    double yCircle = Double.parseDouble(yCircleString);
+                    double rCircle = Double.parseDouble(rCircleString);
+                    circle(xCircle, yCircle, rCircle);
+                }
+                case "rectangle" -> {
+                    String xRectangleString = scanner.next();
+                    String yRectangleString = scanner.next();
+                    String wRectangleString = scanner.next();
+                    String hRectangleString = scanner.next();
+                    double xRectangle = Double.parseDouble(xRectangleString);
+                    double yRectangle = Double.parseDouble(yRectangleString);
+                    double wRectangle = Double.parseDouble(wRectangleString);
+                    double hRectangle = Double.parseDouble(hRectangleString);
+                    rectangle(xRectangle, yRectangle, wRectangle, hRectangle);
+                }
+                case "move" -> move();
+                case "remove" -> remove();
+                case "sort" -> sort();
+            }
         }
     }
 
@@ -45,37 +61,26 @@ public class GeometricUI {
 
     //show the whole array with the geometric objects
     private void showGeometrics() {
-
+        for (Geometric currentGeometric : currentGeometrics) {
+            String geometricString = currentGeometric.toString(currentGeometrics.indexOf(currentGeometric));
+            System.out.println(geometricString);
+        }
     }
 
     //put object in array
-    private void circle() {
-        System.out.println("Give the x coordinate of the centre: ");
-        int x = number;
-        System.out.println("Give the y coordinate of the centre: ");
-        int y = number;
-        System.out.println("Give the radius of the circle: ");
-        int r = number;
+    private void circle(double x, double y, double r) {
+        Circle circle = new Circle(x, y, r);
+        currentGeometrics.add(circle);
     }
 
-    //put object in arrau
-    private void rectangle() {
-        System.out.println("Give the width of the rectangle: ");
-        int width = number;
-        System.out.println("Give the height of the rectangle: ");
-        int height = number;
-        System.out.println("Give the x coordinate of the left corner of the rectangle: ");
-        int x = number;
-        System.out.println("Give the y coordinate of the left corner of the rectangle: ");
-        int y = number;
+    //put object in array
+    private void rectangle(double x, double y, double width, double height) {
+        Rectangle rectangle = new Rectangle(x, y, width, height);
+        currentGeometrics.add(rectangle);
     }
 
     //move object i in the array with dx and dy
     private void move() {
-        System.out.println("How many steps you want to move the object horizontal? ");
-        int dx = number;
-        System.out.println("How many steps you want to move the object vertical? ");
-        int dy = number;
     }
 
     //remove object i in the array (.remove?)
