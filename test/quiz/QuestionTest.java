@@ -28,16 +28,16 @@ public class QuestionTest {
 		assertEquals(4, q.getScore());
 	}
 
-	@Test
-	public void thisThatQuestionTest() {
-		Question q = new ThisThatQuestion("Are you hungry?", "yes", "no", 0, 1);
-		assertEquals("yes or no: Are you hungry?", q.toString());
-		assertTrue(q.isCorrect("yes"));
-		assertFalse(q.isCorrect("no"));
-		assertFalse(q.isCorrect("maybe"));
-		assertEquals("yes", q.correctAnswer());
-		assertEquals(1, q.getScore());
-	}
+//	@Test
+//	public void thisThatQuestionTest() {
+//		Question q = new ThisThatQuestion("Are you hungry?", "yes", "no", 0, 1);
+//		assertEquals("yes or no: Are you hungry?", q.toString());
+//		assertTrue(q.isCorrect("yes"));
+//		assertFalse(q.isCorrect("no"));
+//		assertFalse(q.isCorrect("maybe"));
+//		assertEquals("yes", q.correctAnswer());
+//		assertEquals(1, q.getScore());
+//	}
 
 	@Test
 	public void scoreBelowOneTest() {
