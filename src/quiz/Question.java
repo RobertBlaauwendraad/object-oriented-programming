@@ -4,19 +4,13 @@ public abstract class Question {
 	protected String question;
 	protected String answer;
 	protected int score;
-	protected int totalScore = 0;
 
 	public String toString() {
-		return question;
+		return question + "\n";
 	}
 
 	public boolean isCorrect(String answer) {
-		String correctAnswer = correctAnswer();
-		boolean isCorrect = correctAnswer.equalsIgnoreCase(answer);
-		if (isCorrect) {
-			totalScore += score;
-		}
-		return isCorrect;
+		return correctAnswer().equalsIgnoreCase(answer.trim());
 	}
 
 	public String correctAnswer() {

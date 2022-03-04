@@ -12,4 +12,19 @@ public class OpenQuestion extends Question {
 		this.answer = answer;
 		setScore(3);
 	}
+
+	@Override
+	public boolean isCorrect(String answer) {
+		return correctAnswer().equalsIgnoreCase(answer.trim());
+	}
+
+	@Override
+	public String correctAnswer() {
+		return answer;
+	}
+
+	@Override
+	public String toString() {
+		return question + "\n";
+	}
 }

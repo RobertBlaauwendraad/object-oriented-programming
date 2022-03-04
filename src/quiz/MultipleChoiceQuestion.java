@@ -29,6 +29,11 @@ public class MultipleChoiceQuestion extends Question {
 	}
 
 	@Override
+	public boolean isCorrect(String answer) {
+		return correctAnswer().equalsIgnoreCase(answer.trim());
+	}
+
+	@Override
 	public String correctAnswer() {
 		return alphabet[correctAnswer];
 	}

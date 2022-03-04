@@ -13,11 +13,16 @@ public class ThisThatQuestion extends MultipleChoiceQuestion {
 
 	@Override
 	public String toString() {
-		return answers[0] + " or " + answers[1] + ": " + this.question;
+		return answers[0] + " or " + answers[1] + ": " + this.question + "\n";
 	}
 
 	@Override
 	public String correctAnswer() {
 		return answers[correctAnswer];
+	}
+
+	@Override
+	public boolean isCorrect(String answer) {
+		return correctAnswer().equalsIgnoreCase(answer.trim());
 	}
 }
