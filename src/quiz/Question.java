@@ -3,7 +3,8 @@ package quiz;
 public abstract class Question {
 	protected String question;
 	protected String answer;
-	protected int score = 3;
+	protected int score;
+	protected int totalScore = 0;
 
 	public String toString() {
 		return question;
@@ -11,7 +12,11 @@ public abstract class Question {
 
 	public boolean isCorrect(String answer) {
 		String correctAnswer = correctAnswer();
-		return correctAnswer.equalsIgnoreCase(answer);
+		boolean isCorrect = correctAnswer.equalsIgnoreCase(answer);
+		if (isCorrect) {
+			totalScore += score;
+		}
+		return isCorrect;
 	}
 
 	public String correctAnswer() {
@@ -23,6 +28,10 @@ public abstract class Question {
 	}
 
 	public void setScore (int val) {
-		score = val;
+		if (val < 1 || val > 5) {
+			score = 3;
+		} else {
+			score = val;
+		}
 	}
 }
