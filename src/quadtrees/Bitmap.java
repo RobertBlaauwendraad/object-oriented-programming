@@ -4,15 +4,15 @@ package quadtrees;
  * Bitmap: A class for representing bitmap;
  */
 public class Bitmap {
-	// each bit is stored into an two dimensional array
+	// each bit is stored into a two-dimensional array
 	private final boolean[][] raster;
 	private final int bmWidth, bmHeight;
 
 	/**
 	 * Creates an empty bitmap of size width * height
 	 * 
-	 * @param width
-	 * @param height
+	 * @param width: width of image
+	 * @param height: height of image
 	 */
 	public Bitmap(int width, int height) {
 		raster = new boolean[width][height];
