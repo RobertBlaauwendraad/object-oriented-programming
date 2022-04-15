@@ -47,7 +47,22 @@ public class QTree {
 	}
 
 	public static QuadTreeNode bitmap2QTree(int x, int y, int width, Bitmap bitmap) {
-		return null;
-	}
+		// TODO: make recursive
+//		for (int i = x; i < width - 1; i++) {
+//			if (bitmap.getBit(x, y) == bitmap.getBit(x + 1, y)) {
+//				continue;
+//			} else {
+//				int nodeWidth = i - x;
+//			}
+//		}
 
+
+
+		boolean bitValue = bitmap.getBit(x, y);
+		if (bitValue) { // White leaf
+			return new WhiteLeaf();
+		} else { // Black leaf
+			return new BlackLeaf();
+		}
+	}
 }

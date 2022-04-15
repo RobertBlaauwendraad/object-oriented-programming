@@ -1,5 +1,6 @@
 package quadtrees;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -24,7 +25,12 @@ public class GreyNode implements QuadTreeNode {
 
 	@Override
 	public void writeNode(Writer out) {
-
+		try {
+			out.write("1");
+			// TODO: Make sure we write the 4 next nodes as well
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public void addNodeToChildren(QuadTreeNode node) {

@@ -1,5 +1,6 @@
 package quadtrees;
 
+import java.io.IOException;
 import java.io.Writer;
 
 public class WhiteLeaf implements QuadTreeNode {
@@ -10,6 +11,10 @@ public class WhiteLeaf implements QuadTreeNode {
 
 	@Override
 	public void writeNode(Writer out) {
-
+		try {
+			out.write("01");
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

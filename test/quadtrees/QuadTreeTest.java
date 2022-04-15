@@ -73,6 +73,7 @@ public class QuadTreeTest {
 		assertEquals("00", w.toString());
 	}
 
+	@Test
 	public void writeAllBlack4x4() {
 		Bitmap b4x4 = new Bitmap(4, 4);
 		b4x4.fillArea(0, 0, 4, false);
@@ -95,6 +96,7 @@ public class QuadTreeTest {
 		assertEquals("01", w.toString());
 	}
 
+	@Test
 	public void writeAllWhite4x4() {
 		Bitmap b4x4 = new Bitmap(4, 4);
 		b4x4.fillArea(0, 0, 4, true);
@@ -103,6 +105,18 @@ public class QuadTreeTest {
 		tree.writeQTree(w);
 		assertEquals("****\n" + "****\n" + "****\n" + "****\n", b4x4.toString());
 		assertEquals("01", w.toString());
+	}
+
+	@Test
+	public void writeMixedBlackWhite2x2() {
+		Bitmap b2x2 = new Bitmap(2, 2);
+		b2x2.fillArea(0, 0, 1, true);
+		b2x2.fillArea(1, 1, 1, true);
+		QTree tree = new QTree(b2x2);
+		Writer w = new StringWriter();
+		tree.writeQTree(w);
+		assertEquals("*O\n" + "O*\n", b2x2.toString());
+		assertEquals("101000100", w.toString());
 	}
 
 }
