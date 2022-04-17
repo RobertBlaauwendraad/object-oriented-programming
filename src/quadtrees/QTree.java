@@ -47,18 +47,20 @@ public class QTree {
 	}
 
 	public static QuadTreeNode bitmap2QTree(int x, int y, int width, Bitmap bitmap) {
-		// TODO: make recursive
-//		for (int i = x; i < width - 1; i++) {
-//			if (bitmap.getBit(x, y) == bitmap.getBit(x + 1, y)) {
-//				continue;
-//			} else {
-//				int nodeWidth = i - x;
-//			}
-//		}
-
-
-
 		boolean bitValue = bitmap.getBit(x, y);
+		for (int i = x; i < width + x; i++) {
+			for (int j = y; j < width + y; j++) {
+				if (bitValue != bitmap.getBit(i, j)) { // Not everything is the same color
+					GreyNode greyNode = new GreyNode();
+					int halfWidth = width / 2;
+					greyNode.addNodeToChildren(bitmap2QTree(x, y, halfWidth, bitmap));
+					greyNode.addNodeToChildren(bitmap2QTree(x + halfWidth, y, halfWidth, bitmap));
+					greyNode.addNodeToChildren(bitmap2QTree(x + halfWidth, y + halfWidth, halfWidth, bitmap));
+					greyNode.addNodeToChildren(bitmap2QTree(x, y + halfWidth, halfWidth, bitmap));
+					return greyNode;
+				}
+			}
+		}
 		if (bitValue) { // White leaf
 			return new WhiteLeaf();
 		} else { // Black leaf

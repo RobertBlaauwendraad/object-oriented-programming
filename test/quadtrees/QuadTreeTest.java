@@ -119,4 +119,14 @@ public class QuadTreeTest {
 		assertEquals("101000100", w.toString());
 	}
 
+	@Test
+	public void writeMixedBlackWhite4x4() {
+		Bitmap b4x4 = new Bitmap(4, 4);
+		b4x4.fillArea(3, 0, 1, true);
+		QTree tree = new QTree(b4x4);
+		Writer w = new StringWriter();
+		tree.writeQTree(w);
+		assertEquals("OOO*\n" + "OOOO\n" + "OOOO\n" + "OOOO\n", b4x4.toString());
+		assertEquals("1001000100000000", w.toString());
+	}
 }

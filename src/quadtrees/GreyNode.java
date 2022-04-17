@@ -1,7 +1,6 @@
 package quadtrees;
 
 import java.io.IOException;
-import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,23 +10,21 @@ public class GreyNode implements QuadTreeNode {
 
 	@Override
 	public void fillBitmap(int x, int y, int width, Bitmap bitmap) {
-		int newWidth = width / 2;
-		for (int i = 0; i < children.size(); i++) {
-			QuadTreeNode currentNode = children.get(i);
-			switch (i) {
-				case 0 -> currentNode.fillBitmap(x, y, newWidth, bitmap);
-				case 1 -> currentNode.fillBitmap(x + newWidth, y, newWidth, bitmap);
-				case 2 -> currentNode.fillBitmap(x + newWidth, y + newWidth, newWidth, bitmap);
-				case 3 -> currentNode.fillBitmap(x, y + newWidth, newWidth, bitmap);
-			}
-		}
+		int halfWidth = width / 2;
+		children.get(0).fillBitmap(x, y, halfWidth, bitmap);
+		children.get(1).fillBitmap(x + halfWidth, y, halfWidth, bitmap);
+		children.get(2).fillBitmap(x + halfWidth, y + halfWidth, halfWidth, bitmap);
+		children.get(3).fillBitmap(x, y + halfWidth, halfWidth, bitmap);
 	}
 
 	@Override
 	public void writeNode(Writer out) {
 		try {
 			out.write("1");
-			// TODO: Make sure we write the 4 next nodes as well
+			children.get(0).writeNode(out);
+			children.get(1).writeNode(out);
+			children.get(2).writeNode(out);
+			children.get(3).writeNode(out);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
