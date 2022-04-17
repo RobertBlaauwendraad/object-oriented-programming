@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GreyNode implements QuadTreeNode {
-	List<QuadTreeNode> children = new ArrayList<QuadTreeNode>();
+	private final List<QuadTreeNode> children = new ArrayList<QuadTreeNode>();
 
 	@Override
 	public void fillBitmap(int x, int y, int width, Bitmap bitmap) {
