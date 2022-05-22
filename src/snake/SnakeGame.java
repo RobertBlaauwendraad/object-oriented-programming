@@ -25,18 +25,26 @@ public class SnakeGame extends Pane {
 
         Food food = world.getFood();
         Circle foodShape = new Circle(food.getX() * SCALE + 5, food.getY() * SCALE + 5, 5, Color.BLUE);
-        world.getFood().getXProperty().addListener((ov, ow, nw) -> foodShape.setCenterX(((int) nw * SCALE)  + 5));
-        world.getFood().getYProperty().addListener((ov, ow, nw) -> foodShape.setCenterY(((int) nw * SCALE)  + 5));
+        food.getXProperty().addListener((ov, ow, nw) -> foodShape.setCenterX(((int) nw * SCALE)  + 5));
+        food.getYProperty().addListener((ov, ow, nw) -> foodShape.setCenterY(((int) nw * SCALE)  + 5));
 
         this.getChildren().addAll(head, foodShape);
-        world.getSnake().addListener(new newSegment());
+        snake.addListener(new SegmentListener(this));
     }
 
-    public static class newSegment implements Snake.SnakeSegmentListener{
-        // TODO: Add growing
+    private static class SegmentListener implements Snake.SnakeSegmentListener{
+        private final SnakeGame snakeGame;
+        public SegmentListener(SnakeGame snakeGame) {
+            this.snakeGame = snakeGame;
+        }
+
         @Override
         public void onNewSegment(Segment segment) {
-
+            Rectangle bodySegment = new Rectangle(segment.getX() * SCALE, segment.getY() * SCALE, 10, 10);
+            bodySegment.setFill(Color.GREEN);
+            segment.getXProperty().addListener((ov, ow, nw) -> bodySegment.setX((int) nw * SCALE));
+            segment.getYProperty().addListener((ov, ow, nw) -> bodySegment.setY((int) nw * SCALE));
+            snakeGame.getChildren().add(bodySegment);
         }
     }
 

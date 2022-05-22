@@ -36,12 +36,27 @@ public class Snake extends Segment {
 
         Food food = world.getFood();
         if (newX == food.getX() && newY == food.getY()) {
-            // TODO: Implement growing
-//            body.add(new Segment(getX(), getY()));
-//            SnakeGame.newSegment()
+            Segment segment = new Segment(getX() - direction.getDX(), getY() - direction.getDY());
+            body.add(segment);
+            for (SnakeSegmentListener listener : listeners) {
+                listener.onNewSegment(segment);
+            }
             world.setScore(world.getScore() + 1);
             world.moveFoodRandomly();
         }
+        int nextX = getX();
+        int nextY = getY();
+        for (Segment segment: body) {
+            int currentX = segment.getX();
+            int currentY = segment.getY();
+            if (newX == nextX && newY == nextY) {
+                world.endGame();
+            }
+            segment.setPosition(nextX, nextY);
+            nextX = currentX;
+            nextY = currentY;
+        }
+
         this.setPosition(newX, newY);
     }
 
