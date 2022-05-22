@@ -1,9 +1,12 @@
 package snake;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.util.Duration;
 
 import java.util.Random;
 
@@ -31,8 +34,15 @@ public class World {
         snake = new Snake(size / 2, size / 2, this);
         food = new Food();
 
-        // TODO: Implement timeline
-
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(DELAY), e -> snake.move()));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        running.addListener((ov, ow, nw) -> {
+            if (nw) {
+                timeline.play();
+            } else {
+                timeline.stop();
+            }
+        });
         moveFoodRandomly();
     }
 

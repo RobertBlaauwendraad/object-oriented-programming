@@ -9,7 +9,7 @@ import java.util.List;
 public class Snake extends Segment {
 
     public interface SnakeSegmentListener {
-        public void onNewSegment(Segment segment);
+        void onNewSegment(Segment segment);
     }
 
     private Direction direction = Direction.RIGHT;
@@ -29,7 +29,20 @@ public class Snake extends Segment {
         int newX = getX() + direction.getDX();
         int newY = getY() + direction.getDY();
 
-        // TODO: Implement movement
+        int worldSize = world.getSize();
+        if (newX >= worldSize || newX < 0 || newY >= worldSize || newY < 0) {
+            world.endGame();
+        }
+
+        Food food = world.getFood();
+        if (newX == food.getX() && newY == food.getY()) {
+            // TODO: Implement growing
+//            body.add(new Segment(getX(), getY()));
+//            SnakeGame.newSegment()
+            world.setScore(world.getScore() + 1);
+            world.moveFoodRandomly();
+        }
+        this.setPosition(newX, newY);
     }
 
     public void addListener(SnakeSegmentListener listener) {

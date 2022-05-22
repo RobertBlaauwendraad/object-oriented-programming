@@ -1,6 +1,7 @@
 package snake;
 
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
@@ -16,12 +17,22 @@ public class InputHandler {
         Snake snake = world.getSnake();
 
         keyHandler = keyEvent -> {
-            // TODO: Implement controls
+            if (keyEvent.getCode().equals(KeyCode.S)) {
+                world.setRunning(!world.isRunning());
+            } else if (keyEvent.getCode().equals(KeyCode.A)) {
+                snake.setDirection(snake.getDirection().rotateLeft());
+            } else if (keyEvent.getCode().equals(KeyCode.D)) {
+                snake.setDirection(snake.getDirection().rotateRight());
+            }
             keyEvent.consume();
         };
 
         mouseHandler = mouseEvent -> {
-            // TODO: Implement mouse
+            double x = mouseEvent.getX();
+            double y = mouseEvent.getY();
+            if (x > 0 && x < world.getSize() * SnakeGame.SCALE && y > 0 && y < world.getSize() * SnakeGame.SCALE) {
+                world.getFood().moveTo((int) x / SnakeGame.SCALE, (int) y / SnakeGame.SCALE);
+            }
             mouseEvent.consume();
         };
     }
