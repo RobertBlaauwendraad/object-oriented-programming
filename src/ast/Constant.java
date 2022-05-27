@@ -2,12 +2,9 @@ package ast;
 
 import java.util.Map;
 
-public class Constant implements Formula {
-	public final Boolean bool;
-
-	public Constant(Boolean bool) {
-		this.bool = bool;
-	}
+public enum Constant implements Formula {
+	True,
+	False;
 
 	@Override
 	public <Result, Argument> Result accept(FormulaVisitor<Result, Argument> visitor, Argument argument) {
@@ -21,15 +18,6 @@ public class Constant implements Formula {
 
 	@Override
 	public Boolean getBool(Map<String, Boolean> env) {
-		return this.bool;
-	}
-
-	@Override
-	public String toString() {
-		if (bool) {
-			return "True";
-		} else {
-			return "False";
-		}
+		return Boolean.parseBoolean(this.toString());
 	}
 }

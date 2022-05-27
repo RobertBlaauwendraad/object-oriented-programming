@@ -3,7 +3,7 @@ package ast;
 import java.util.Map;
 
 public class Atom implements Formula {
-	public String atom;
+	private final String atom;
 
 	public Atom(String atom) {
 		this.atom = atom;

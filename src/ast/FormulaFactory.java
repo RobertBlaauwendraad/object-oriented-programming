@@ -24,9 +24,9 @@ public class FormulaFactory {
 		return new Not(notOp);
 	}
 
-	public static final Formula TRUE = new Constant(true);
+	public static final Formula TRUE = Constant.True;
 
-	public static final Formula FALSE = new Constant(false);
+	public static final Formula FALSE = Constant.False;
 
 	public static String prettyPrint(Formula f) {
 		PrintVisitor printVisitor = new PrintVisitor();
