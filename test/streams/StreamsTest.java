@@ -14,7 +14,9 @@ public class StreamsTest {
     @Test
     public void countEvenNumbers() {
         // Use streams and lambdas to count the number of even digits in PI
-        long result = 0;
+        long result = Stream.of(PI)
+            .filter(n -> n % 2 == 0)
+            .count();
         assertEquals(20, result);
     }
 
@@ -23,7 +25,9 @@ public class StreamsTest {
     @Test
     public void sumOddNumbers() {
         // Use streams and lambdas to sum the odd digits of PI
-        int result = 0;
+        int result = Stream.of(PI)
+            .filter(n -> n % 2 == 1)
+            .reduce(0, Integer::sum);
         assertEquals(157, result);
     }
     
@@ -32,7 +36,10 @@ public class StreamsTest {
     @Test
     public void multiplyNumbers() {
         // Use streams and lambdas to multiply the 5 biggest digits of PI
-        int result = 0;
+        int result = Stream.of(PI)
+            .sorted(Comparator.reverseOrder())
+            .limit(5)
+            .reduce(1, (a, b) -> a * b);
         assertEquals(59049, result);
     }
    
@@ -44,7 +51,10 @@ public class StreamsTest {
         // Use streams and lambdas to include tax, then sum the results.
         Double tax = 0.12; // 12% tax
         Double[] prices = {11.5, 10.0, 1234.5678, 17.3, 19.99};
-        Double result = 0.0;
+        Double result = Stream.of(prices)
+            .map(n -> n + n * tax)
+            .mapToDouble(Double::doubleValue)
+            .sum();
         assertEquals(1448.560736, (double)result, 0.0000001);
     }
 
@@ -55,7 +65,9 @@ public class StreamsTest {
         // Use streams to sum the numbers
         // Hint: use Integer::parseInt
         String[] input = {"1", "5", "13", "7", "2"};
-        int result = 0;
+        int result = Stream.of(input)
+            .mapToInt(Integer::parseInt)
+            .sum();
         assertEquals(28, result);
     }
     
@@ -71,8 +83,11 @@ public class StreamsTest {
         };
         
         // Hint: Stream.of(input) is a stream of int arrays
-        int result = 0;
-        
+        int result = Stream.of(input) // Stream<Int[]>
+            .map(n -> IntStream.of(n).sum())
+            .reduce(Integer::sum)
+            .orElse(0);
+
         assertEquals(57, result);
     }
 
@@ -93,7 +108,11 @@ public class StreamsTest {
         // Hint 2: Replace those indexes with the elements of the input array
         //   - To turn an IntStream into a Stream<Integer> you can use Stream.mapToObj
         // Hint 3: Use Stream.collect and Collectors.toList() to turn a stream into a List
-        List<Integer> result = input;
+        List<Integer> result = IntStream
+            .range(0, input.size())
+            .filter(n -> n % 2 == 0)
+            .mapToObj(input::get)
+            .collect(Collectors.toList());
 
         assertEquals(expected, result);
     }
@@ -125,6 +144,10 @@ public class StreamsTest {
         // Hint 2: To construct a string from a list of characters, use
         //         Stream::collect with StringBuilder::new and StringBuilder::append
         // Hint 3: Use a type cast to turn an integer x into a character: (char)x
+        s = s.chars()
+            .map(n -> (char) rot13(n))
+            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+            .toString();
         return s;
     }
 
@@ -170,7 +193,11 @@ public class StreamsTest {
         //         You should turn it into a stream of Map.Entry.
         // Hint 2: To reassemble a map from a stream of Entries, use Stream.collect
         //         with Collectors.toMap, Map.Entry::getKey, Map.Entry::getValue
-        Map<String,String> result = philosophers;
+        Map<String,String> result = philosophers
+            .entrySet()
+            .stream()
+            .filter(n -> "Greek".equals(n.getValue()))
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
         assertEquals(expected, result);
     }
